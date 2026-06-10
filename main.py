@@ -35,7 +35,12 @@ def run_query(conn: sqlite3.Connection, sql: str) -> None:
         if cols:
             print(tabulate(rows, headers=cols, tablefmt="grid"))
         else:
-            print("查詢已執行。")
+            # 顯示受影響的行數 (INSERT/UPDATE/DELETE 操作)
+            if cur.rowcount >= 0:
+                print(f"查詢已執行，影響 {cur.rowcount} 筆記錄。")
+            else:
+                print("查詢已執行。")
+        conn.commit()
     except Exception as e:
         print(f"查詢錯誤: {e}")
 
