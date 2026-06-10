@@ -32,13 +32,13 @@ jobs:
     - name: Lint with flake8
       run: |
         # 停止在語法錯誤或未定義名稱時出現
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 src/ --count --select=E9,F63,F7,F82 --show-source --statistics
         # 退出代碼為1，表示有任何未設置的格式化錯誤
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        flake8 src/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Test with pytest
       run: |
-        pytest tests/ -v --cov=main --cov-report=xml --cov-report=html --junitxml=junit.xml
+        pytest tests/ -v --cov=src --cov-report=xml --cov-report=html --junitxml=junit.xml
 
     - name: Upload coverage to Codecov
       if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.10'
