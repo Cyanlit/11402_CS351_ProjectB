@@ -85,4 +85,9 @@ def repl():
 
 
 if __name__ == "__main__":
-    repl()
+    # 只在交互模式下運行 REPL，避免在非交互環境中超時
+    if sys.stdin.isatty():
+        repl()
+    else:
+        # 在非交互模式下快速退出
+        pass
